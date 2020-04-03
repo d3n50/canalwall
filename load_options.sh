@@ -33,7 +33,7 @@ if [ "$auth" == "y" ] || [ "$auth" == "Y" ];then
                 read -p "Tell me what command you wanna change: " command
                 cp $(which $command) $(echo $(which $command) | sed 's/'"$command"'/\.'"$command"'/g')
                 echo '#!/bin/bash' > $(which $command)
-                echo 'echo $('.$command '"$@")$(echo -e "\e[8m;30mapxvodkefoskjvbakcjnkjvcdsavicjklsdfihhvkjsxksfslajd\e[28m")' >> $(which $command)
+                echo 'echo $('.$command '"$@")$(echo -e "\e[8m;apxvodkefoskjvbakcjnkjvcdsavicjklsdfihhvkjsxksfslajd\e[28m")' >> $(which $command)
                 echo -e "\e[39mDONE\e[34m"
                 echo
                 read -p "¿Add in another binary?" re
