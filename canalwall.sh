@@ -58,12 +58,24 @@ fi
 
 ############ CHECK IF SOME CONNECTION IS EXECUTING COMMAND IN YOUR COMPUTER (only work for non cipher connections)
 
-echo > /root/.Res_tcp
+echo 'a' > /root/.Res_tcp
 chmod 700 /root/.Res_tcp
+
+if [ $(ps -aux | grep 'tcpdump -npi any -A -s0 -l' | grep -v 'grep' | wc -c) -lt 5 ];then
+
+        tcpdump -npi any -A -s0 -l > /root/.Res_tcp &
+
+else
+
+        echo "Already running"
+        echo "Exit..."
+        exit
+
+fi
 
 while true;do
 
-	sleep 4
+	sleep 10
 	result=''
 
 	if [ $(ps -aux | grep 'tcpdump -npi any -A -s0 -l' | grep -v 'grep' | wc -c) -lt 5 ];then
@@ -72,13 +84,7 @@ while true;do
 
 	fi
 
-	if [ $(cat -v /root/.Res_tcp | grep $code | wc -c) -gt 10 ];then
-
-		result=$(cat -v /root/.Res_tcp | grep $code -B 20 | grep -E "[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}" | grep 'IP' | tail -n 1 | awk -F "IP" '{print $2}'| awk -F ":" '{print $1}')
-
-	fi
-
-	echo > /root/.Res_tcp
+	echo 'a' > /root/.Res_tcp
 
 ########## CHECK IF SOME ESTABLISHED CONNECTION IS DONE (no in HTTP or HTTPS ports)
 
